@@ -9,9 +9,9 @@ Frontend is built as a one-page React app communicating with smart contracts via
 
 To launch the frontend locally: 
 
-in the `web` directory run the script:
+in the **`web`** directory run the script:
 
-**`./run-web-app.sh`**
+`./run-web-app.sh`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -51,11 +51,11 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 ### Core
 The Core smart contract contains AMM functionality and enables holding FA1.2, FA2 and native tokens on it's balance as well as exchanging those according to built-in algorithm.
 
-The code is in the `contracts/core` directory 
+The code is in the **`contracts/core`** directory 
 
 More info on different types of AMM could be found 
 here: https://opentezos.com/defi/dexs/#different-types-of-amm
 and here: http://mason.gmu.edu/~rhanson/mktscore.pdf
 
 ### FA-compatible tokens
-The directory `contracts/tokens` contains the smart cintracts code for the non-native assets.
+The directory **`contracts/tokens`** contains the smart cintracts code for the non-native assets.
