@@ -1,4 +1,4 @@
-The prject is a minimalistic setup of a one-way AMM ie a smart contract enabling distribution
+The project is a minimalistic implementation of a one-way AMM ie a smart contract enabling distribution
 of FA1.2 and FA2 compatible tokens in exchange of native ones.
 
 The repository is a monorepo containing frontend, contracts and infrastucture code.
