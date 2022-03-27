@@ -3,13 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { TezosToolkit } from "@taquito/taquito";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+var total =0
+const address = "tz1dor4MK3fX3UZbH6ecAJQRNdc1o7TQxKhS"
+const tezos = new TezosToolkit("http://localhost:20001");
+async function repaint(){
+  total++
+  var balance = await tezos.tz.getBalance(address);
+  //balance = 12
+  total = balance / 10 ** 6
+  ReactDOM.render(
+    <React.StrictMode>
+      <App value={total}/>
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+}
+setInterval(repaint, 1000)
 
 // fixing CORS 
 // const cors=require("cors");

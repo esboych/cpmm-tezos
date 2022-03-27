@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
 import { TezosToolkit } from "@taquito/taquito";
+import { InMemorySigner } from '@taquito/signer';
 
 import { useWallet } from "./hooks/use-wallet";
 import { useBalanceState } from "./hooks/use-balance-state";
 import { useContract } from "./hooks/use-contract";
 
-export default function App() {
-  //const tezos = new TezosToolkit("https://delphinet-tezos.giganode.io");
+//j
+import { BeaconWallet } from "@taquito/beacon-wallet";
+
+export default function App(props) {
+  var value = props.value
   const tezos = new TezosToolkit("http://localhost:20001");
 
   const {
@@ -25,7 +29,7 @@ export default function App() {
     connect: connectToContract,
     increaseOperationsCount,
   } = useContract(tezos);
-  const {
+  var {
     balance,
     error: balanceError,
     loading: balanceLoading,
@@ -33,12 +37,12 @@ export default function App() {
 
   const [operationLoading, setOperationLoading] = React.useState(false);
   const [operationError, setOperationError] = React.useState("");
-  const [inputName, setName] = React.useState("");
+  const [inputName, setTezos] = React.useState(1);
   const [inputAge, setAge] = React.useState(0);
 
   useEffect(() => {
     if (storage) {
-      setName(storage.name);
+      setTezos(storage.name);
       setAge(storage.age);
     }
   }, [storage]);
@@ -55,6 +59,7 @@ export default function App() {
           </div>
           <div>Address: {walletLoading ? "Loading..." : address}</div>
           <div>Balance: {balanceLoading ? "Loading..." : balance}</div>
+          <div>Balance live: {value}</div>
         </>
       )}
       {walletError && <div>Wallet Error: {walletError}</div>}
@@ -63,13 +68,13 @@ export default function App() {
       {operationError && <div>Operation Error: {operationError}</div>}
       {initialized ? (
         <p>
-          Enter Name:
+          Tezos to spent:
           <input
             value={inputName}
             //   onFocus="''"
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setTezos(e.target.value)}
           ></input>
-          Enter Age:
+          Tokens to buy:
           <input
             value={inputAge}
             onChange={(e) => setAge(e.target.value)}
@@ -78,7 +83,7 @@ export default function App() {
             disabled={contractLoading || operationLoading}
             onClick={() => submit(inputName, inputAge)}
           >
-            Update
+            Exchange
           </button>
           {operationLoading && `Loading...`}
         </p>
@@ -93,15 +98,31 @@ export default function App() {
     await connectToContract();
   }
 
-  async function submit(name, age) {
+//   async function sendTz() {
+//     var address = 'KT1NEiDJ5rBmJT4xA1JC3HsP7BGVWVCgwn7j' //sender_back_fa12
+//     var amount = 1
+
+//     console.log(`Transfering ${amount} ꜩ to ${address}...`);
+//     tezos.contract.transfer({ to: address, amount: amount })
+//         .then(op => {
+//             console.log(`Waiting for ${op.hash} to be confirmed...`);
+//             return op.confirmation(1).then(() => op.hash);
+//         })
+//         .then(hash => console.log(`${hash}`))
+//         .catch(error => console.log(`Error: ${error} ${JSON.stringify(error, null, 2)}`));
+// }
+
+  async function submit(tezos, age) {
     if (!contract) {
       return;
     }
     try {
       const addr = "tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb";
       //const setAllOp = await contract.methods.setAll(name, Number(age)).send(); //app.ligo
-      const setAllOp = await contract.methods.default(addr).send();
+      const setAllOp = await contract.methods.default(addr).send({amount: Number(tezos)});
+      //await sendTz()
       await setAllOp.confirmation();
+      increaseOperationsCount()
     } catch (error) {
       setOperationError(error.message);
     }

@@ -27,7 +27,7 @@ export function useWallet(tezos) {
       name: "Tezos Application app",
     };
     const wallet = new BeaconWallet(options);
-    //const network = { type: "delphinet" };
+    
     //const network = { type: "hangzhounet" };
     const network = { type: 'custom', name: "sandbox-2", rpcUrl: "http://localhost:20001/", };
     await wallet.requestPermissions({ network });
@@ -41,6 +41,7 @@ export function useWallet(tezos) {
     tezos.setWalletProvider(wallet);
     console.log({ wallet });
     const address = await wallet.getPKH();
+    
     return { address };
   }
 }

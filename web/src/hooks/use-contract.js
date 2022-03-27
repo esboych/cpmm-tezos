@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 //const CONTRACT_ADDRESS = "KT1DpPyhtDXJVj4guBJRkkYFQEXs68ugR8Nm";
 //const CONTRACT_ADDRESS = "KT1HzJJF8Lkm7F5mDki3kMw3vjAs2Nk7vSN7";
-const CONTRACT_ADDRESS = "KT1GEssaBuyqaLgRZNH8pRedcAxnGMeNDooq";
+const CONTRACT_ADDRESS = "KT1Cv5YuLi5UkMUwDTEAvECvGDg7WLaqC3CC"; //sender_back_fa12
 
 export function useContract(tezos) {
   const [contract, setContract] = useState(null);

@@ -12,6 +12,7 @@ export function useBalanceState(
   useEffect(() => {
     loadBalance(address);
   }, [address, contractOperationsCount]);
+//});
 
   return { balance, error, loading };
 
