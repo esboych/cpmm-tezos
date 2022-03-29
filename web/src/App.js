@@ -117,7 +117,9 @@ export default function App(props) {
       return;
     }
     try {
-      const addr = "tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb";
+      setOperationError("")
+      // an address of simpleFA1.2 token
+      const addr = "KT1VNo3ay8m5ZgGDaYT4a4tSMqMYs4TUyn6M";
       //const setAllOp = await contract.methods.setAll(name, Number(age)).send(); //app.ligo
       const setAllOp = await contract.methods.default(addr).send({amount: Number(tezos)});
       //await sendTz()
