@@ -1,9 +1,10 @@
 #!/bin/bash
 
+# verbose & fail fast
 set -ex 
 
 #
-# This script is exclusively for local development
+# This script is for local development setup
 #
 # It deploys locally:
 # 1. A single-node Tezos network based on flextesa:latest Docker image
