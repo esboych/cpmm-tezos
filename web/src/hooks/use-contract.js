@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 
 //const CONTRACT_ADDRESS = "KT1DpPyhtDXJVj4guBJRkkYFQEXs68ugR8Nm";
 //const CONTRACT_ADDRESS = "KT1HzJJF8Lkm7F5mDki3kMw3vjAs2Nk7vSN7";
-const CONTRACT_ADDRESS = "KT1HyQpHaoWCJMZrtFhMs61A32M7TQWNna9w"; //sender_back_fa12
+//const CONTRACT_ADDRESS = "KT1HyQpHaoWCJMZrtFhMs61A32M7TQWNna9w"; //sender_back_fa12
+const CONTRACT_ADDRESS = process.env.REACT_APP_CONTRACT_ADDRESS;
 
 export function useContract(tezos) {
   const [contract, setContract] = useState(null);
@@ -17,6 +18,7 @@ export function useContract(tezos) {
 
   return {
     contract,
+    CONTRACT_ADDRESS,
     error,
     storage,
     loading,

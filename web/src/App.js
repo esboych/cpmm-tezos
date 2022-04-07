@@ -7,12 +7,18 @@ import { useBalanceState } from "./hooks/use-balance-state";
 import { useContract } from "./hooks/use-contract";
 import {ConfigEnv} from "./config";
 
+
+
 //j
 import { BeaconWallet } from "@taquito/beacon-wallet";
 
 export default function App(props) {
   var value = props.value
   const tezos = new TezosToolkit("http://localhost:20001");
+
+
+  const TEST = process.env.REACT_APP_TEST;
+  const TOKEN_ADDRESS = process.env.REACT_APP_FA12_TOKEN_ADDRESS;
   
   var {env_val} = ConfigEnv();
 
@@ -28,6 +34,7 @@ export default function App(props) {
     error: contractError,
     loading: contractLoading,
     contract,
+    CONTRACT_ADDRESS,
     operationsCount,
     connect: connectToContract,
     increaseOperationsCount,
@@ -61,9 +68,14 @@ export default function App(props) {
             Config test val: {env_val}
           </div>
           <div>
+            Current env: {process.env.NODE_ENV}
+          </div>
+          <div>
             Current Age: {contractLoading ? "Loading..." : Number(storage.age)}
           </div>
-          <div>Address: {walletLoading ? "Loading..." : address}</div>
+          <div>Wallet address: {walletLoading ? "Loading..." : address}</div>
+          <div>Contract address: {contractLoading ? "Loading..." : CONTRACT_ADDRESS}</div>
+          <div>Token address: {TOKEN_ADDRESS}</div>
           <div>Balance: {balanceLoading ? "Loading..." : balance}</div>
           <div>Balance live: {value}</div>
         </>
@@ -125,9 +137,10 @@ export default function App(props) {
     try {
       setOperationError("")
       // an address of simpleFA1.2 token
-      const addr = "KT1VNo3ay8m5ZgGDaYT4a4tSMqMYs4TUyn6M";
+      //const addr = "KT1VNo3ay8m5ZgGDaYT4a4tSMqMYs4TUyn6M";
       //const setAllOp = await contract.methods.setAll(name, Number(age)).send(); //app.ligo
-      const setAllOp = await contract.methods.default(addr).send({amount: Number(tezos)});
+      //const setAllOp = await contract.methods.default(addr).send({amount: Number(tezos)});
+      const setAllOp = await contract.methods.default(TOKEN_ADDRESS).send({amount: Number(tezos)});
       //await sendTz()
       await setAllOp.confirmation();
       increaseOperationsCount()
