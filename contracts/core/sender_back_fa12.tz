@@ -1,0 +1,38 @@
+{ parameter address ;
+  storage int ;
+  code { CDR ;
+         SENDER ;
+         AMOUNT ;
+         PUSH nat 2 ;
+         PUSH mutez 1000000 ;
+         DIG 2 ;
+         EDIV ;
+         IF_NONE { PUSH string "DIV by 0" ; FAILWITH } {} ;
+         CAR ;
+         MUL ;
+         PUSH address "KT1FNfX8CKtNXvKLEL42vmgBUJ8LgrxSQuDT" ;
+         SWAP ;
+         PAIR ;
+         SWAP ;
+         SELF_ADDRESS ;
+         DIG 2 ;
+         UNPAIR ;
+         SWAP ;
+         CONTRACT %transfer (pair (address %from) (pair (address %to) (nat %value))) ;
+         IF_NONE { PUSH string "err_fa12_transfer_entrypoint_404" ; FAILWITH } {} ;
+         PUSH mutez 0 ;
+         DIG 2 ;
+         DIG 4 ;
+         DIG 4 ;
+         DUG 2 ;
+         PAIR ;
+         SWAP ;
+         PAIR ;
+         TRANSFER_TOKENS ;
+         SWAP ;
+         NIL operation ;
+         DIG 2 ;
+         CONS ;
+         PAIR } ;
+  view "getValue" int int { CAR } }
+
