@@ -5,12 +5,7 @@ import { InMemorySigner } from '@taquito/signer';
 import { useWallet } from "./hooks/use-wallet";
 import { useBalanceState } from "./hooks/use-balance-state";
 import { useContract } from "./hooks/use-contract";
-import {ConfigEnv} from "./config";
 
-
-
-//j
-import { BeaconWallet } from "@taquito/beacon-wallet";
 
 export default function App(props) {
   var value = props.value
@@ -19,8 +14,6 @@ export default function App(props) {
 
   const TEST = process.env.REACT_APP_TEST;
   const TOKEN_ADDRESS = process.env.REACT_APP_FA12_TOKEN_ADDRESS;
-  
-  var {env_val} = ConfigEnv();
 
   const {
     initialized,
@@ -62,16 +55,7 @@ export default function App(props) {
       {initialized && (
         <>
           <div>
-            Current Name: {contractLoading ? "Loading..." : storage.name}
-          </div>
-          <div>
-            Config test val: {env_val}
-          </div>
-          <div>
             Current env: {process.env.NODE_ENV}
-          </div>
-          <div>
-            Current Age: {contractLoading ? "Loading..." : Number(storage.age)}
           </div>
           <div>Wallet address: {walletLoading ? "Loading..." : address}</div>
           <div>Contract address: {contractLoading ? "Loading..." : CONTRACT_ADDRESS}</div>
