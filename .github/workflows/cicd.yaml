@@ -1,6 +1,6 @@
 on:
-  push:
-
+  #push:
+  workflow_dispatch:
 jobs:
   log-the-inputs:
     runs-on: ubuntu-latest
