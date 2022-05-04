@@ -1,5 +1,3 @@
-.inputs.environment context properties.
-
 on: 
   workflow_dispatch:
     inputs:
